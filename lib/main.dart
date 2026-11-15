@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bhumilestari_mobile/menu.dart';
+import 'package:bhumilestari_mobile/produk.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bhumi Lestari Home Page',
+      title: 'BhumiLestari Home Page',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -29,13 +30,14 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(235, 208, 221, 204),
-          secondary: Colors.green
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFE9F3CF)),
         useMaterial3: true,
       ),
-      home: OurHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const OurHomePage(),
+        '/produk': (context) => const ProdukPage(),
+      },
     );
   }
 }
