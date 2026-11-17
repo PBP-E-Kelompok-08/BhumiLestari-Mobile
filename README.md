@@ -40,7 +40,7 @@ Semua orang yang peduli terkait masalah lingkungan dan ingin berusaha mengurangi
 | 5. | Keranjang | Laman Keranjang & Checkout | Athifah Mufidah |
 
 ## Alur Pengintegrasian Data
-### Modul Produk - Regina 
+### Endpoint DRF Modul Produk - Regina Gunadi
 | Operasi | Guest | Buyer | Seller | Admin |
 |---|---|---|---|---|
 | Create | - | - | `POST /api/v1/products/mine/` | - |
