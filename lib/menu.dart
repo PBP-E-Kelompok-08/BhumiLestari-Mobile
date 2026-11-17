@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:bhumilestari_mobile/chat.dart';
 import 'package:bhumilestari_mobile/produk.dart';
 
 class OurHomePage extends StatelessWidget {
@@ -53,6 +54,8 @@ class OurHomePage extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => const ProdukPage()),
             );
+          } else if (index == 4) {
+            showBuyerChatModeDialog(context);
           }
         },
         items: const [
