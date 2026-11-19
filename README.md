@@ -40,6 +40,25 @@ Semua orang yang peduli terkait masalah lingkungan dan ingin berusaha mengurangi
 | 5. | Keranjang | Laman Keranjang & Checkout | Athifah Mufidah |
 
 ## Alur Pengintegrasian Data
+Backend menggunakan Django REST Framework dengan autentikasi token untuk
+endpoint privat. Dokumentasi endpoint lengkap tersedia di
+[`docs/API_ENDPOINTS.md`](docs/API_ENDPOINTS.md).
+
+Base URL production:
+
+```text
+https://sultan-noor-bhumilestari.pws.cs.ui.ac.id
+```
+
+Untuk menjalankan aplikasi dengan backend lokal pada Android emulator:
+
+```powershell
+flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8000
+```
+
+> Catatan: UI Chat sudah tersedia, tetapi Chat API belum tersedia pada backend
+> `main` dan masih menunggu implementasi modul Chat.
+
 ### Endpoint DRF Modul Produk - Regina Gunadi
 | Operasi | Guest | Buyer | Seller | Admin |
 |---|---|---|---|---|
@@ -48,6 +67,24 @@ Semua orang yang peduli terkait masalah lingkungan dan ingin berusaha mengurangi
 | Read (detail per produk) | `GET /api/v1/products/<product_id>/` | `GET /api/v1/products/<product_id>/` | `GET /api/v1/products/mine/<product_id>/` | `GET /api/v1/products/admin/verification/<product_id>/` |
 | Update | - | - | `PATCH /api/v1/products/mine/<product_id>/` | `PATCH /api/v1/products/admin/verification/<product_id>/` |
 | Delete | - | - | `DELETE /api/v1/products/mine/<product_id>/` | - |
+
+## Navigasi Aplikasi
+
+Navigasi Flutter menggunakan named route yang dipusatkan pada
+`lib/navigation/app_router.dart`. Route lama `/produk` tetap dipertahankan
+sebagai alias agar kompatibel dengan pekerjaan anggota lain.
+
+| Route | Halaman |
+|---|---|
+| `/` | Beranda/Ringkasan |
+| `/products` | Produk |
+| `/cart` | Keranjang |
+| `/orders` | Pesanan atau riwayat pembelian |
+| `/sales-report` | Laporan penjualan |
+| `/chat` | Chat pembeli |
+| `/profile` | Profil pengguna |
+| `/admin/products` | Verifikasi produk admin |
+| `/admin/reviews` | Moderasi ulasan admin |
 
 ## Tautan Design Figma 
 https://www.figma.com/design/JG0Xg7sLjXzbTzazoMqXJY/Project-E08?node-id=1-4&p=f&t=WYGNfy6ztcR4rRba-0
