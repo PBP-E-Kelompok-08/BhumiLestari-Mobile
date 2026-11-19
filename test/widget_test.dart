@@ -8,6 +8,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bhumilestari_mobile/main.dart';
+import 'package:bhumilestari_mobile/navigation/app_route_names.dart';
+import 'package:bhumilestari_mobile/navigation/app_router.dart';
 
 void main() {
   testWidgets('menampilkan halaman utama BhumiLestari', (
@@ -21,6 +23,46 @@ void main() {
         'Salam hangat dari Tim BhumiLestari - Sedang dalam pengembangan',
       ),
       findsOneWidget,
+    );
+  });
+
+  testWidgets('navigasi home membuka halaman produk', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.text('Produk'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Halaman Produk - Sedang pengembangan'), findsOneWidget);
+  });
+
+  testWidgets('navigasi home membuka placeholder pesanan', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.text('Pesanan'));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('Riwayat dan status pesanan akan ditampilkan di sini.'),
+      findsOneWidget,
+    );
+  });
+
+  test('router mendaftarkan route utama aplikasi', () {
+    expect(
+      AppRouter.routes.keys,
+      containsAll([
+        AppRouteNames.home,
+        AppRouteNames.products,
+        AppRouteNames.cart,
+        AppRouteNames.orders,
+        AppRouteNames.salesReport,
+        AppRouteNames.chat,
+        AppRouteNames.profile,
+      ]),
     );
   });
 }

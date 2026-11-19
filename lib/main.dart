@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bhumilestari_mobile/menu.dart';
-import 'package:bhumilestari_mobile/produk.dart';
+import 'package:bhumilestari_mobile/navigation/app_route_names.dart';
+import 'package:bhumilestari_mobile/navigation/app_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,11 +33,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFE9F3CF)),
         useMaterial3: true,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const OurHomePage(),
-        '/produk': (context) => const ProdukPage(),
-      },
+      initialRoute: AppRouteNames.home,
+      routes: AppRouter.routes,
     );
   }
 }

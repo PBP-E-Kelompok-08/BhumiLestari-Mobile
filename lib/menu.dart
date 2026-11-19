@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:bhumilestari_mobile/chat.dart';
-import 'package:bhumilestari_mobile/produk.dart';
+import 'package:bhumilestari_mobile/navigation/app_route_names.dart';
 
 class OurHomePage extends StatelessWidget {
   const OurHomePage({super.key});
@@ -49,14 +48,16 @@ class OurHomePage extends StatelessWidget {
         unselectedLabelStyle: GoogleFonts.prompt(fontSize: 10),
         currentIndex: 0,
         onTap: (index) {
-          if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProdukPage()),
-            );
-          } else if (index == 4) {
-            showBuyerChatModeDialog(context);
-          }
+          const routes = [
+            AppRouteNames.home,
+            AppRouteNames.products,
+            AppRouteNames.orders,
+            AppRouteNames.salesReport,
+            AppRouteNames.chat,
+            AppRouteNames.profile,
+          ];
+          if (index == 0) return;
+          Navigator.of(context).pushNamed(routes[index]);
         },
         items: const [
           BottomNavigationBarItem(
