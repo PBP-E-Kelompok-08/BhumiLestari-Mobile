@@ -10,14 +10,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bhumilestari_mobile/main.dart';
 
 void main() {
-  testWidgets('menampilkan halaman utama Bhumi Lestari', (
+  testWidgets('menampilkan halaman utama BhumiLestari', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(const MyApp());
 
-    expect(find.text('Bhumi Lestari'), findsOneWidget);
+    expect(find.text('BhumiLestari'), findsOneWidget);
     expect(
-      find.text('Salam hangat dari Bhumi Lestari!'),
+      find.text(
+        'Salam hangat dari Tim BhumiLestari - Sedang dalam pengembangan',
+      ),
       findsOneWidget,
     );
   });
