@@ -40,6 +40,25 @@ Semua orang yang peduli terkait masalah lingkungan dan ingin berusaha mengurangi
 | 5. | Keranjang | Laman Keranjang & Checkout | Athifah Mufidah |
 
 ## Alur Pengintegrasian Data
+Backend menggunakan Django REST Framework dengan autentikasi token untuk
+endpoint privat. Dokumentasi endpoint lengkap tersedia di
+[`docs/API_ENDPOINTS.md`](docs/API_ENDPOINTS.md).
+
+Base URL production:
+
+```text
+https://sultan-noor-bhumilestari.pws.cs.ui.ac.id
+```
+
+Untuk menjalankan aplikasi dengan backend lokal pada Android emulator:
+
+```powershell
+flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8000
+```
+
+> Catatan: UI Chat sudah tersedia, tetapi Chat API belum tersedia pada backend
+> `main` dan masih menunggu implementasi modul Chat.
+
 ### Endpoint DRF Modul Produk - Regina Gunadi
 | Operasi | Guest | Buyer | Seller | Admin |
 |---|---|---|---|---|
@@ -48,6 +67,55 @@ Semua orang yang peduli terkait masalah lingkungan dan ingin berusaha mengurangi
 | Read (detail per produk) | `GET /api/v1/products/<product_id>/` | `GET /api/v1/products/<product_id>/` | `GET /api/v1/products/mine/<product_id>/` | `GET /api/v1/products/admin/verification/<product_id>/` |
 | Update | - | - | `PATCH /api/v1/products/mine/<product_id>/` | `PATCH /api/v1/products/admin/verification/<product_id>/` |
 | Delete | - | - | `DELETE /api/v1/products/mine/<product_id>/` | - |
+
+### Endpoint DRF Modul Ulasan Toko - Sultan Noor Dafiq
+| Operasi | Guest | Buyer | Seller | Admin |
+|---|---|---|---|---|
+| Create | - | `POST /api/v1/reviews/toko/<store_id>/` | `POST /api/v1/reviews/<review_id>/balasan/` | - |
+| Read (daftar ulasan toko) | `GET /api/v1/reviews/toko/<store_id>/` | `GET /api/v1/reviews/toko/<store_id>/` | `GET /api/v1/reviews/toko/<store_id>/` | `GET /api/v1/reviews/laporan/` |
+| Read (ulasan sendiri) | - | `GET /api/v1/reviews/saya/` | - | - |
+| Update | - | `PATCH /api/v1/reviews/<review_id>/` | `PATCH /api/v1/reviews/<review_id>/balasan/` | `PATCH /api/v1/reviews/laporan/<report_id>/` |
+| Delete | - | `DELETE /api/v1/reviews/<review_id>/` | `DELETE /api/v1/reviews/<review_id>/balasan/` | - |
+| Report | - | `POST /api/v1/reviews/<review_id>/laporan/` | `POST /api/v1/reviews/<review_id>/laporan/` | `GET /api/v1/reviews/laporan/` |
+
+### Endpoint DRF Modul Keranjang & Checkout - Athifah Mufidah
+| Operasi | Guest | Buyer | Seller | Admin |
+|---|---|---|---|---|
+| Create (item keranjang) | - | `POST /api/v1/checkout/cart/items/` | - | - |
+| Create (pesanan) | - | `POST /api/v1/checkout/orders/` | - | - |
+| Read (keranjang) | - | `GET /api/v1/checkout/cart/` | - | - |
+| Read (ringkasan checkout) | - | `GET /api/v1/checkout/summary/` | - | - |
+| Read (pesanan) | - | `GET /api/v1/checkout/orders/`<br>`GET /api/v1/checkout/orders/<order_id>/` | `GET /api/v1/checkout/orders/`<br>`GET /api/v1/checkout/orders/<order_id>/` | - |
+| Update (item keranjang) | - | `PATCH /api/v1/checkout/cart/items/<item_id>/`<br>`PATCH /api/v1/checkout/cart/selection/` | - | - |
+| Update (status pesanan) | - | `PATCH /api/v1/checkout/orders/<order_id>/` | `PATCH /api/v1/checkout/orders/<order_id>/` | - |
+| Delete | - | `DELETE /api/v1/checkout/cart/items/<item_id>/` | - | - |
+
+## Navigasi Aplikasi
+
+Navigasi Flutter menggunakan named route yang dipusatkan pada
+`lib/navigation/app_router.dart`. Route lama `/produk` tetap dipertahankan
+sebagai alias agar kompatibel dengan pekerjaan anggota lain.
+
+| Route | Halaman |
+|---|---|
+| `/` | Beranda/Ringkasan |
+| `/products` | Produk |
+| `/cart` | Keranjang |
+| `/orders` | Pesanan atau riwayat pembelian |
+| `/sales-report` | Laporan penjualan |
+| `/chat` | Chat pembeli |
+| `/profile` | Profil pengguna |
+| `/admin/products` | Verifikasi produk admin |
+| `/admin/reviews` | Moderasi ulasan admin |
+
+Bottom navigation disusun berdasarkan role:
+
+| Role | Menu utama |
+|---|---|
+| Guest | Produk, Login |
+| Buyer | Produk, Keranjang, Riwayat Beli, Chat, Pengguna |
+| Seller | Ringkasan, Produk, Pesanan, Laporan Penjualan, Chat, Pengguna |
+| Admin | Verifikasi Produk, Moderasi Ulasan, Laporan Penjualan, Pengguna |
 
 ## Tautan Design Figma 
 https://www.figma.com/design/JG0Xg7sLjXzbTzazoMqXJY/Project-E08?node-id=1-4&p=f&t=WYGNfy6ztcR4rRba-0

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:bhumilestari_mobile/chat.dart';
-import 'package:bhumilestari_mobile/produk.dart';
+import 'package:bhumilestari_mobile/navigation/app_route_names.dart';
+import 'package:bhumilestari_mobile/navigation/app_user_role.dart';
+import 'package:bhumilestari_mobile/widgets/app_bottom_navigation.dart';
 
 class OurHomePage extends StatelessWidget {
   const OurHomePage({super.key});
@@ -39,55 +40,9 @@ class OurHomePage extends StatelessWidget {
           'Salam hangat dari Tim BhumiLestari - Sedang dalam pengembangan',
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF4A6358),
-        selectedItemColor: const Color(0xFFF3EFC3),
-        unselectedItemColor: const Color(0xFFF3EFC3),
-        iconSize: 30,
-        selectedLabelStyle: GoogleFonts.prompt(fontSize: 10),
-        unselectedLabelStyle: GoogleFonts.prompt(fontSize: 10),
-        currentIndex: 0,
-        onTap: (index) {
-          if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProdukPage()),
-            );
-          } else if (index == 4) {
-            showBuyerChatModeDialog(context);
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.space_dashboard_outlined),
-            label: 'Ringkasan',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.inventory_2_outlined),
-            label: 'Produk',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            label: 'Pesanan',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Lap. Penjualan',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_outlined),
-            label: 'Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: CircleAvatar(
-              radius: 15,
-              backgroundColor: Color(0xFFD9D9D9),
-              child: Icon(Icons.person, color: Colors.grey, size: 20),
-            ),
-            label: 'Pengguna',
-          ),
-        ],
+      bottomNavigationBar: const AppBottomNavigationBar(
+        role: AppUserRole.seller,
+        currentRoute: AppRouteNames.home,
       ),
     );
   }

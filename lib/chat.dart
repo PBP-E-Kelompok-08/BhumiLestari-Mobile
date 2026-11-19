@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:bhumilestari_mobile/produk.dart';
+import 'package:bhumilestari_mobile/navigation/app_route_names.dart';
+import 'package:bhumilestari_mobile/navigation/app_user_role.dart';
+import 'package:bhumilestari_mobile/widgets/app_bottom_navigation.dart';
 
 /// Palet warna resmi modul Chat Pembeli BhumiLestari.
 abstract final class BuyerChatPalette {
@@ -343,11 +345,9 @@ class _BuyerChatListPageState extends State<BuyerChatListPage> {
   }
 
   void _openRoomPreview() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => const BuyerChatRoomPage(),
-      ),
-    );
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute<void>(builder: (_) => const BuyerChatRoomPage()));
   }
 
   @override
@@ -460,9 +460,7 @@ class _BuyerChannelListPageState extends State<BuyerChannelListPage> {
 
   void _openChannelPreview() {
     Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => const BuyerChannelRoomPage(),
-      ),
+      MaterialPageRoute<void>(builder: (_) => const BuyerChannelRoomPage()),
     );
   }
 
@@ -647,17 +645,21 @@ class _BuyerConversationHubScaffold extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 18),
-                Expanded(
-                  child: _buildBodyState(context),
-                ),
+                Expanded(child: _buildBodyState(context)),
               ],
             ),
           ),
         ),
       ),
-      bottomNavigationBar: _BuyerBottomNavigationBar(
-        activeMode: activeMode,
-        buyerLabel: buyerNavLabel,
+      bottomNavigationBar: AppBottomNavigationBar(
+        role: AppUserRole.buyer,
+        currentRoute: AppRouteNames.chat,
+        profileLabel: buyerNavLabel,
+        onReselect: () => showBuyerChatModeDialog(
+          context,
+          activeMode: activeMode,
+          replaceCurrentRoute: true,
+        ),
       ),
     );
   }
@@ -702,10 +704,7 @@ class _BuyerConversationHubScaffold extends StatelessWidget {
       );
     }
 
-    return ListView.builder(
-      itemCount: itemCount,
-      itemBuilder: itemBuilder,
-    );
+    return ListView.builder(itemCount: itemCount, itemBuilder: itemBuilder);
   }
 }
 
@@ -874,12 +873,10 @@ class _BuyerStateMessage extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 28,
-              backgroundColor: BuyerChatPalette.darkSage.withValues(alpha: 0.12),
-              child: Icon(
-                icon,
-                size: 28,
-                color: BuyerChatPalette.darkSage,
+              backgroundColor: BuyerChatPalette.darkSage.withValues(
+                alpha: 0.12,
               ),
+              child: Icon(icon, size: 28, color: BuyerChatPalette.darkSage),
             ),
             const SizedBox(height: 14),
             Text(
@@ -1059,10 +1056,7 @@ class _BuyerChatRoomPageState extends State<BuyerChatRoomPage> {
               } else if (value == 'report') {
                 showBuyerReportDialog(context);
               } else if (value == 'toast_ok') {
-                showBuyerChatToast(
-                  context,
-                  message: 'Data berhasil disimpan!',
-                );
+                showBuyerChatToast(context, message: 'Data berhasil disimpan!');
               } else if (value == 'toast_err') {
                 showBuyerChatToast(
                   context,
@@ -1076,10 +1070,7 @@ class _BuyerChatRoomPageState extends State<BuyerChatRoomPage> {
                 value: 'rating',
                 child: Text('Beri Rating Percakapan'),
               ),
-              PopupMenuItem(
-                value: 'report',
-                child: Text('Laporkan Pengguna'),
-              ),
+              PopupMenuItem(value: 'report', child: Text('Laporkan Pengguna')),
               PopupMenuDivider(),
               PopupMenuItem(
                 value: 'toast_ok',
@@ -1103,8 +1094,7 @@ class _BuyerChatRoomPageState extends State<BuyerChatRoomPage> {
                     ? _BuyerStateMessage(
                         icon: Icons.forum_outlined,
                         title: 'Belum ada pesan',
-                        description:
-                            'Riwayat pesan dengan penjual akan tampil di sini setelah data percakapan tersedia.',
+                        description: 'Riwayat pesan dengan penjual akan tampil di sini setelah data percakapan tersedia.',
                         actionLabel: 'Pratinjau Rating',
                         onAction: () => showBuyerRatingDialog(context),
                         secondaryLabel: 'Pratinjau Laporan',
@@ -1171,10 +1161,7 @@ class BuyerChannelRoomPage extends StatelessWidget {
               }
             },
             itemBuilder: (context) => const [
-              PopupMenuItem(
-                value: 'report',
-                child: Text('Laporkan Channel'),
-              ),
+              PopupMenuItem(value: 'report', child: Text('Laporkan Channel')),
             ],
           ),
         ],
@@ -1189,8 +1176,7 @@ class BuyerChannelRoomPage extends StatelessWidget {
                     ? const _BuyerStateMessage(
                         icon: Icons.campaign_outlined,
                         title: 'Belum ada pengumuman',
-                        description:
-                            'Pesan atau pengumuman dari pemilik channel akan tampil di sini.',
+                        description: 'Pesan atau pengumuman dari pemilik channel akan tampil di sini.',
                       )
                     : _BuyerMessageListView(messages: announcements),
               ),
@@ -1305,7 +1291,8 @@ class _BuyerMessageListView extends StatelessWidget {
       separatorBuilder: (_, _) => const SizedBox(height: 14),
       itemBuilder: (context, index) {
         final msg = messages[index];
-        final showDate = msg.dateLabel != null &&
+        final showDate =
+            msg.dateLabel != null &&
             (index == 0 || messages[index - 1].dateLabel != msg.dateLabel);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1351,10 +1338,7 @@ class _BuyerDatePill extends StatelessWidget {
 }
 
 class _BuyerMessageBubble extends StatelessWidget {
-  const _BuyerMessageBubble({
-    required this.message,
-    this.onContactSellerTap,
-  });
+  const _BuyerMessageBubble({required this.message, this.onContactSellerTap});
 
   final BuyerChatMessage message;
   final VoidCallback? onContactSellerTap;
@@ -1397,17 +1381,20 @@ class _BuyerMessageBubble extends StatelessWidget {
                 style: GoogleFonts.prompt(
                   fontSize: 13,
                   height: 1.45,
-                  color: alignRight ? Colors.white : BuyerChatPalette.forestText,
+                  color: alignRight
+                      ? Colors.white
+                      : BuyerChatPalette.forestText,
                 ),
               ),
               if (!alignRight && message.showContactSellerAction) ...[
                 const SizedBox(height: 12),
                 FilledButton(
-                  onPressed: onContactSellerTap ??
+                  onPressed:
+                      onContactSellerTap ??
                       () => showBuyerChatToast(
-                            context,
-                            message: 'Menghubungkan ke penjual belum tersedia.',
-                          ),
+                        context,
+                        message: 'Menghubungkan ke penjual belum tersedia.',
+                      ),
                   style: FilledButton.styleFrom(
                     backgroundColor: BuyerChatPalette.oliveAccent,
                     foregroundColor: BuyerChatPalette.forestText,
@@ -1556,10 +1543,7 @@ Future<void> showBuyerRatingDialog(
 
 /// Popover pemberian rating & feedback percakapan pembeli.
 class BuyerRatingDialog extends StatefulWidget {
-  const BuyerRatingDialog({
-    super.key,
-    required this.onSubmit,
-  });
+  const BuyerRatingDialog({super.key, required this.onSubmit});
 
   final void Function(int rating, String feedback) onSubmit;
 
@@ -1649,10 +1633,7 @@ Future<void> showBuyerReportDialog(
 
 /// Popover pelaporan penjual/pengguna oleh pembeli.
 class BuyerReportDialog extends StatefulWidget {
-  const BuyerReportDialog({
-    super.key,
-    required this.onSubmit,
-  });
+  const BuyerReportDialog({super.key, required this.onSubmit});
 
   final ValueChanged<String> onSubmit;
 
@@ -1789,10 +1770,7 @@ class _BuyerFeedbackDialogShell extends StatelessWidget {
               ),
               if (validationMessage != null) ...[
                 const SizedBox(height: 12),
-                BuyerChatToastCard(
-                  message: validationMessage!,
-                  isError: true,
-                ),
+                BuyerChatToastCard(message: validationMessage!, isError: true),
               ],
               const SizedBox(height: 20),
               Align(
@@ -1845,10 +1823,7 @@ void showBuyerChatToast(
         padding: EdgeInsets.zero,
         duration: const Duration(seconds: 3),
         content: Center(
-          child: BuyerChatToastCard(
-            message: message,
-            isError: isError,
-          ),
+          child: BuyerChatToastCard(message: message, isError: isError),
         ),
       ),
     );
@@ -1867,8 +1842,9 @@ class BuyerChatToastCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stripeColor =
-        isError ? BuyerChatPalette.errorRed : BuyerChatPalette.darkSage;
+    final stripeColor = isError
+        ? BuyerChatPalette.errorRed
+        : BuyerChatPalette.darkSage;
 
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 240, maxWidth: 340),
@@ -1919,86 +1895,6 @@ class _BuyerAvatarCircle extends StatelessWidget {
         color: BuyerChatPalette.avatarIcon,
         size: radius * 1.25,
       ),
-    );
-  }
-}
-
-class _BuyerBottomNavigationBar extends StatelessWidget {
-  const _BuyerBottomNavigationBar({
-    required this.activeMode,
-    this.buyerLabel,
-  });
-
-  final BuyerChatMode activeMode;
-  final String? buyerLabel;
-
-  @override
-  Widget build(BuildContext context) {
-    final profileLabel = (buyerLabel != null && buyerLabel!.isNotEmpty)
-        ? buyerLabel!
-        : 'Pengguna';
-
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: BuyerChatPalette.darkSage,
-      selectedItemColor: BuyerChatPalette.creamText,
-      unselectedItemColor: BuyerChatPalette.creamText,
-      iconSize: 28,
-      selectedLabelStyle: GoogleFonts.prompt(
-        fontSize: 10,
-        fontWeight: FontWeight.w600,
-      ),
-      unselectedLabelStyle: GoogleFonts.prompt(fontSize: 10),
-      currentIndex: 3,
-      onTap: (index) {
-        if (index == 0) {
-          Navigator.of(context).push(
-            MaterialPageRoute<void>(builder: (_) => const ProdukPage()),
-          );
-        } else if (index == 3) {
-          showBuyerChatModeDialog(
-            context,
-            activeMode: activeMode,
-            replaceCurrentRoute: true,
-          );
-        } else {
-          // TODO: Hubungkan halaman Keranjang, Riwayat Beli, dan Profil Pengguna.
-          showBuyerChatToast(
-            context,
-            message: 'Halaman masih dalam pengembangan.',
-          );
-        }
-      },
-      items: [
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.inventory_2_outlined),
-          label: 'Produk',
-        ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart_outlined),
-          label: 'Keranjang',
-        ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.bar_chart),
-          label: 'Riwayat Beli',
-        ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.chat_outlined),
-          label: 'Chat',
-        ),
-        BottomNavigationBarItem(
-          icon: const CircleAvatar(
-            radius: 14,
-            backgroundColor: BuyerChatPalette.avatarBackground,
-            child: Icon(
-              Icons.person,
-              color: BuyerChatPalette.avatarIcon,
-              size: 18,
-            ),
-          ),
-          label: profileLabel,
-        ),
-      ],
     );
   }
 }
