@@ -8,8 +8,10 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bhumilestari_mobile/main.dart';
+import 'package:bhumilestari_mobile/navigation/app_navigation_config.dart';
 import 'package:bhumilestari_mobile/navigation/app_route_names.dart';
 import 'package:bhumilestari_mobile/navigation/app_router.dart';
+import 'package:bhumilestari_mobile/navigation/app_user_role.dart';
 
 void main() {
   testWidgets('menampilkan halaman utama BhumiLestari', (
@@ -64,5 +66,28 @@ void main() {
         AppRouteNames.profile,
       ]),
     );
+  });
+
+  test('navigasi buyer memuat fitur yang sesuai role', () {
+    final routes = AppNavigationConfig.destinationsFor(AppUserRole.buyer)
+        .map((destination) => destination.route);
+
+    expect(routes, [
+      AppRouteNames.products,
+      AppRouteNames.cart,
+      AppRouteNames.orders,
+      AppRouteNames.chat,
+      AppRouteNames.profile,
+    ]);
+  });
+
+  test('navigasi admin tidak memuat keranjang dan chat', () {
+    final routes = AppNavigationConfig.destinationsFor(AppUserRole.admin)
+        .map((destination) => destination.route);
+
+    expect(routes, contains(AppRouteNames.productVerification));
+    expect(routes, contains(AppRouteNames.reviewModeration));
+    expect(routes, isNot(contains(AppRouteNames.cart)));
+    expect(routes, isNot(contains(AppRouteNames.chat)));
   });
 }

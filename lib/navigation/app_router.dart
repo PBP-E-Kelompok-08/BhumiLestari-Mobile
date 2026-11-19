@@ -32,6 +32,11 @@ abstract final class AppRouter {
       description: 'Profil dan pengaturan akun akan ditampilkan di sini.',
       icon: Icons.person_outline,
     ),
+    AppRouteNames.login: (_) => const FeaturePlaceholderPage(
+      title: 'Login',
+      description: 'Halaman login akan dihubungkan ke Users API.',
+      icon: Icons.login,
+    ),
     AppRouteNames.productVerification: (_) => const FeaturePlaceholderPage(
       title: 'Verifikasi Produk',
       description: 'Antrean verifikasi produk untuk admin.',

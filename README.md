@@ -86,6 +86,15 @@ sebagai alias agar kompatibel dengan pekerjaan anggota lain.
 | `/admin/products` | Verifikasi produk admin |
 | `/admin/reviews` | Moderasi ulasan admin |
 
+Bottom navigation disusun berdasarkan role:
+
+| Role | Menu utama |
+|---|---|
+| Guest | Produk, Login |
+| Buyer | Produk, Keranjang, Riwayat Beli, Chat, Pengguna |
+| Seller | Ringkasan, Produk, Pesanan, Laporan Penjualan, Chat, Pengguna |
+| Admin | Verifikasi Produk, Moderasi Ulasan, Laporan Penjualan, Pengguna |
+
 ## Tautan Design Figma 
 https://www.figma.com/design/JG0Xg7sLjXzbTzazoMqXJY/Project-E08?node-id=1-4&p=f&t=WYGNfy6ztcR4rRba-0
 

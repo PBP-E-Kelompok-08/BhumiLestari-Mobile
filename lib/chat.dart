@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bhumilestari_mobile/navigation/app_route_names.dart';
+import 'package:bhumilestari_mobile/navigation/app_user_role.dart';
+import 'package:bhumilestari_mobile/widgets/app_bottom_navigation.dart';
 
 /// Palet warna resmi modul Chat Pembeli BhumiLestari.
 abstract final class BuyerChatPalette {
@@ -649,9 +651,15 @@ class _BuyerConversationHubScaffold extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: _BuyerBottomNavigationBar(
-        activeMode: activeMode,
-        buyerLabel: buyerNavLabel,
+      bottomNavigationBar: AppBottomNavigationBar(
+        role: AppUserRole.buyer,
+        currentRoute: AppRouteNames.chat,
+        profileLabel: buyerNavLabel,
+        onReselect: () => showBuyerChatModeDialog(
+          context,
+          activeMode: activeMode,
+          replaceCurrentRoute: true,
+        ),
       ),
     );
   }
@@ -1887,82 +1895,6 @@ class _BuyerAvatarCircle extends StatelessWidget {
         color: BuyerChatPalette.avatarIcon,
         size: radius * 1.25,
       ),
-    );
-  }
-}
-
-class _BuyerBottomNavigationBar extends StatelessWidget {
-  const _BuyerBottomNavigationBar({required this.activeMode, this.buyerLabel});
-
-  final BuyerChatMode activeMode;
-  final String? buyerLabel;
-
-  @override
-  Widget build(BuildContext context) {
-    final profileLabel = (buyerLabel != null && buyerLabel!.isNotEmpty)
-        ? buyerLabel!
-        : 'Pengguna';
-
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: BuyerChatPalette.darkSage,
-      selectedItemColor: BuyerChatPalette.creamText,
-      unselectedItemColor: BuyerChatPalette.creamText,
-      iconSize: 28,
-      selectedLabelStyle: GoogleFonts.prompt(
-        fontSize: 10,
-        fontWeight: FontWeight.w600,
-      ),
-      unselectedLabelStyle: GoogleFonts.prompt(fontSize: 10),
-      currentIndex: 3,
-      onTap: (index) {
-        if (index == 3) {
-          showBuyerChatModeDialog(
-            context,
-            activeMode: activeMode,
-            replaceCurrentRoute: true,
-          );
-          return;
-        }
-        const routes = [
-          AppRouteNames.products,
-          AppRouteNames.cart,
-          AppRouteNames.orders,
-          AppRouteNames.chat,
-          AppRouteNames.profile,
-        ];
-        Navigator.of(context).pushReplacementNamed(routes[index]);
-      },
-      items: [
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.inventory_2_outlined),
-          label: 'Produk',
-        ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart_outlined),
-          label: 'Keranjang',
-        ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.bar_chart),
-          label: 'Riwayat Beli',
-        ),
-        const BottomNavigationBarItem(
-          icon: Icon(Icons.chat_outlined),
-          label: 'Chat',
-        ),
-        BottomNavigationBarItem(
-          icon: const CircleAvatar(
-            radius: 14,
-            backgroundColor: BuyerChatPalette.avatarBackground,
-            child: Icon(
-              Icons.person,
-              color: BuyerChatPalette.avatarIcon,
-              size: 18,
-            ),
-          ),
-          label: profileLabel,
-        ),
-      ],
     );
   }
 }
