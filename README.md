@@ -56,9 +56,6 @@ Untuk menjalankan aplikasi dengan backend lokal pada Android emulator:
 flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8000
 ```
 
-> Catatan: UI Chat sudah tersedia, tetapi Chat API belum tersedia pada backend
-> `main` dan masih menunggu implementasi modul Chat.
-
 ### Endpoint DRF Modul Produk - Regina Gunadi
 | Operasi | Guest | Buyer | Seller | Admin |
 |---|---|---|---|---|
@@ -89,6 +86,26 @@ flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8000
 | Update (item keranjang) | - | `PATCH /api/v1/checkout/cart/items/<item_id>/`<br>`PATCH /api/v1/checkout/cart/selection/` | - | - |
 | Update (status pesanan) | - | `PATCH /api/v1/checkout/orders/<order_id>/` | `PATCH /api/v1/checkout/orders/<order_id>/` | - |
 | Delete | - | `DELETE /api/v1/checkout/cart/items/<item_id>/` | - | - |
+
+### Endpoint DRF Modul Chat - Alfarrel Ersya Balawa
+| Operasi | Guest | Buyer | Seller | Admin |
+|---|---|---|---|---|
+| Create (sesi AI & kirim pesan) | - | `POST /api/v1/chat/sessions/ai/`<br>`POST /api/v1/chat/sessions/<session_id>/send/`<br>`POST /api/v1/chat/sessions/<session_id>/direct-send/` | `POST /api/v1/chat/sessions/<session_id>/direct-send/` | `POST /api/v1/chat/sessions/<session_id>/direct-send/` |
+| Create (konteks produk sesi) | - | `POST /api/v1/chat/sessions/<session_id>/products/` | `POST /api/v1/chat/sessions/<session_id>/products/` | - |
+| Create (rating sesi) | - | `POST /api/v1/chat/sessions/<session_id>/rating/` | - | - |
+| Create (knowledge base bot) | - | - | `POST /api/v1/chat/seller/knowledge/` | - |
+| Create (pesan siaran channel) | - | - | `POST /api/v1/chat/broadcast/channels/<channel_id>/messages/`<br>`POST /api/v1/chat/broadcast/channels/<channel_id>/send/` | - |
+| Read (pencarian penjual) | - | `GET /api/v1/chat/sellers/search/` | `GET /api/v1/chat/sellers/search/` | `GET /api/v1/chat/sellers/search/` |
+| Read (daftar sesi inbox) | - | `GET /api/v1/chat/buyer/sessions/` | `GET /api/v1/chat/seller/sessions/` | - |
+| Read (riwayat pesan sesi) | - | `GET /api/v1/chat/sessions/<session_id>/messages/` | `GET /api/v1/chat/sessions/<session_id>/messages/` | `GET /api/v1/chat/sessions/<session_id>/messages/` |
+| Read (pengaturan & knowledge bot) | - | - | `GET /api/v1/chat/seller/settings/`<br>`GET /api/v1/chat/seller/knowledge/`<br>`GET /api/v1/chat/seller/knowledge/<knowledge_id>/` | - |
+| Read (channel & pesan siaran) | - | `GET /api/v1/chat/broadcast/channels/`<br>`GET /api/v1/chat/broadcast/channels/explore/`<br>`GET /api/v1/chat/broadcast/channels/<channel_id>/messages/` | `GET /api/v1/chat/broadcast/channels/`<br>`GET /api/v1/chat/broadcast/channels/explore/`<br>`GET /api/v1/chat/broadcast/channels/<channel_id>/messages/` | `GET /api/v1/chat/broadcast/channels/`<br>`GET /api/v1/chat/broadcast/channels/explore/`<br>`GET /api/v1/chat/broadcast/channels/<channel_id>/messages/` |
+| Update (handover AI/direct & arsip sesi) | - | `POST /api/v1/chat/sessions/<session_id>/escalate-to-seller/`<br>`POST /api/v1/chat/sessions/<session_id>/switch-to-ai/`<br>`POST /api/v1/chat/sessions/<session_id>/archive/` | `POST /api/v1/chat/sessions/<session_id>/archive/` | `POST /api/v1/chat/sessions/<session_id>/archive/` |
+| Update (pengaturan & knowledge bot) | - | - | `POST/PUT/PATCH /api/v1/chat/seller/settings/`<br>`PUT/PATCH /api/v1/chat/seller/knowledge/<knowledge_id>/`<br>`POST /api/v1/chat/seller/knowledge/<knowledge_id>/toggle/` | - |
+| Update (tambah, follow, arsip channel) | - | `POST /api/v1/chat/broadcast/channels/<channel_id>/add/`<br>`POST /api/v1/chat/broadcast/channels/<channel_id>/follow/`<br>`POST /api/v1/chat/broadcast/channels/<channel_id>/archive/` | `POST /api/v1/chat/broadcast/channels/<channel_id>/add/`<br>`POST /api/v1/chat/broadcast/channels/<channel_id>/follow/`<br>`POST /api/v1/chat/broadcast/channels/<channel_id>/archive/` | `POST /api/v1/chat/broadcast/channels/<channel_id>/add/`<br>`POST /api/v1/chat/broadcast/channels/<channel_id>/follow/`<br>`POST /api/v1/chat/broadcast/channels/<channel_id>/archive/` |
+| Delete (konteks produk sesi) | - | `DELETE /api/v1/chat/sessions/<session_id>/products/`<br>`POST/DELETE /api/v1/chat/sessions/<session_id>/products/delete/` | `DELETE /api/v1/chat/sessions/<session_id>/products/`<br>`POST/DELETE /api/v1/chat/sessions/<session_id>/products/delete/` | - |
+| Delete (knowledge base bot) | - | - | `DELETE /api/v1/chat/seller/knowledge/<knowledge_id>/` | - |
+| Report | - | `POST /api/v1/chat/reports/` | `POST /api/v1/chat/reports/` | - |
 
 ## Navigasi Aplikasi
 

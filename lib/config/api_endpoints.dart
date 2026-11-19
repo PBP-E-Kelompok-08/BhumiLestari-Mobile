@@ -43,4 +43,50 @@ abstract final class ApiEndpoints {
 
   static const sellerSummary = '/api/v1/dashboard/seller/summary/';
   static const salesReport = '/api/v1/dashboard/sales-report/';
+
+  static const chatSellersSearch = '/api/v1/chat/sellers/search/';
+  static const chatAiSessions = '/api/v1/chat/sessions/ai/';
+  static const buyerChatSessions = '/api/v1/chat/buyer/sessions/';
+  static const sellerChatSessions = '/api/v1/chat/seller/sessions/';
+  static const sellerChatSettings = '/api/v1/chat/seller/settings/';
+  static const sellerChatKnowledge = '/api/v1/chat/seller/knowledge/';
+  static const chatReports = '/api/v1/chat/reports/';
+  static const broadcastChannels = '/api/v1/chat/broadcast/channels/';
+  static const broadcastChannelsExplore =
+      '/api/v1/chat/broadcast/channels/explore/';
+
+  static String chatSessionProducts(String sessionId) =>
+      '/api/v1/chat/sessions/$sessionId/products/';
+  static String chatSessionProductsDelete(String sessionId) =>
+      '/api/v1/chat/sessions/$sessionId/products/delete/';
+  static String chatSessionAiSend(String sessionId) =>
+      '/api/v1/chat/sessions/$sessionId/send/';
+  static String chatSessionEscalateToSeller(String sessionId) =>
+      '/api/v1/chat/sessions/$sessionId/escalate-to-seller/';
+  static String chatSessionSwitchToAi(String sessionId) =>
+      '/api/v1/chat/sessions/$sessionId/switch-to-ai/';
+  static String chatSessionMessages(String sessionId) =>
+      '/api/v1/chat/sessions/$sessionId/messages/';
+  static String chatSessionDirectSend(String sessionId) =>
+      '/api/v1/chat/sessions/$sessionId/direct-send/';
+  static String chatSessionArchive(String sessionId) =>
+      '/api/v1/chat/sessions/$sessionId/archive/';
+  static String chatSessionRating(String sessionId) =>
+      '/api/v1/chat/sessions/$sessionId/rating/';
+
+  static String sellerChatKnowledgeDetail(int knowledgeId) =>
+      '/api/v1/chat/seller/knowledge/$knowledgeId/';
+  static String sellerChatKnowledgeToggle(int knowledgeId) =>
+      '/api/v1/chat/seller/knowledge/$knowledgeId/toggle/';
+
+  static String broadcastChannelAdd(int channelId) =>
+      '/api/v1/chat/broadcast/channels/$channelId/add/';
+  static String broadcastChannelFollow(int channelId) =>
+      '/api/v1/chat/broadcast/channels/$channelId/follow/';
+  static String broadcastChannelArchive(int channelId) =>
+      '/api/v1/chat/broadcast/channels/$channelId/archive/';
+  static String broadcastChannelMessages(int channelId) =>
+      '/api/v1/chat/broadcast/channels/$channelId/messages/';
+  static String broadcastChannelSend(int channelId) =>
+      '/api/v1/chat/broadcast/channels/$channelId/send/';
 }
