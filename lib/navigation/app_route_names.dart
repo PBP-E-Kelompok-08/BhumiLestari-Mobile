@@ -8,6 +8,7 @@ abstract final class AppRouteNames {
   static const chat = '/chat';
   static const profile = '/profile';
   static const login = '/login';
+  static const register = '/register';
   static const productVerification = '/admin/products';
   static const reviewModeration = '/admin/reviews';
 }

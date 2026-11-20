@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:bhumilestari_mobile/navigation/app_navigation_config.dart';
 import 'package:bhumilestari_mobile/navigation/app_route_names.dart';
 import 'package:bhumilestari_mobile/navigation/app_user_role.dart';
+import 'package:bhumilestari_mobile/user/widgets/user_menu_sheet.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({
@@ -54,6 +55,11 @@ class AppBottomNavigationBar extends StatelessWidget {
   }
 
   void _openDestination(BuildContext context, String route) {
+    // Tab Pengguna membuka menu akun (Login/Sign Up atau Pengaturan/Logout).
+    if (route == AppRouteNames.profile) {
+      showUserMenuSheet(context);
+      return;
+    }
     if (route == currentRoute) {
       onReselect?.call();
       return;
