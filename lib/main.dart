@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:bhumilestari_mobile/navigation/app_route_names.dart';
 import 'package:bhumilestari_mobile/navigation/app_router.dart';
+import 'package:bhumilestari_mobile/user/user_session.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Hapus token kalau login terakhir tidak mencentang "Remember Me".
+  await UserSession.clearIfNotRemembered();
   runApp(const MyApp());
 }
 

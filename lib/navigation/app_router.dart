@@ -5,6 +5,8 @@ import 'package:bhumilestari_mobile/menu.dart';
 import 'package:bhumilestari_mobile/navigation/app_route_names.dart';
 import 'package:bhumilestari_mobile/navigation/feature_placeholder_page.dart';
 import 'package:bhumilestari_mobile/produk.dart';
+import 'package:bhumilestari_mobile/user/screens/login.dart';
+import 'package:bhumilestari_mobile/user/screens/register.dart';
 
 abstract final class AppRouter {
   static final Map<String, WidgetBuilder> routes = {
@@ -32,11 +34,8 @@ abstract final class AppRouter {
       description: 'Profil dan pengaturan akun akan ditampilkan di sini.',
       icon: Icons.person_outline,
     ),
-    AppRouteNames.login: (_) => const FeaturePlaceholderPage(
-      title: 'Login',
-      description: 'Halaman login akan dihubungkan ke Users API.',
-      icon: Icons.login,
-    ),
+    AppRouteNames.login: (_) => const LoginPage(),
+    AppRouteNames.register: (_) => const RegisterPage(),
     AppRouteNames.productVerification: (_) => const FeaturePlaceholderPage(
       title: 'Verifikasi Produk',
       description: 'Antrean verifikasi produk untuk admin.',
