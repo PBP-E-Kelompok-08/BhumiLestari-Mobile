@@ -135,7 +135,7 @@ Bottom navigation disusun berdasarkan role:
 | Admin | Verifikasi Produk, Moderasi Ulasan, Laporan Penjualan, Pengguna |
 
 ## Tautan Design Figma 
-https://www.figma.com/design/JG0Xg7sLjXzbTzazoMqXJY/Project-E08?node-id=1-4&p=f&t=WYGNfy6ztcR4rRba-0
+https://www.figma.com/design/JG0Xg7sLjXzbTzazoMqXJY/Project-E08?m=auto&t=nzirHQ1MJJJQBQYP-6
 
 ## Tautan APK
 (INCOMING)
